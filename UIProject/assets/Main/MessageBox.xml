@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <controller name="ctrlError" pages="0,msg,1,error" selected="1"/>
+  <displayList>
+    <graph id="n37_hkf5" name="n37" xy="0,0" size="800,600" type="rect" lineSize="0" fillColor="#33000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n42_ekry" name="frame" src="gcza1l" fileName="Window/WindowFrame.xml" pkg="nk9ejx23" xy="218,186" size="364,144" group="n43_ekry"/>
+    <text id="n40_ekry" name="txtMsg" xy="230,220" size="340,67" group="n43_ekry" fontSize="12" color="#ff0000" align="center" vAlign="middle" autoSize="none" text="txtMsg">
+      <gearDisplay controller="ctrlError" pages="0,1"/>
+      <gearColor controller="ctrlError" pages="1" values="#ff0000,#000000" default="#bdbdbd,#000000"/>
+    </text>
+    <component id="n41_ekry" name="btnOk" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="357,293" group="n43_ekry">
+      <gearDisplay controller="ctrlError" pages="1"/>
+      <relation target="n43_ekry" sidePair=""/>
+      <Button title="btnOk"/>
+    </component>
+    <group id="n43_ekry" name="n43" xy="218,186" size="364,144" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>

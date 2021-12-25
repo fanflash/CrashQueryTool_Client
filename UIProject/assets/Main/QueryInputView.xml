@@ -31,7 +31,7 @@
     </component>
     <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="157,525">
       <relation target="" sidePair="center-center,bottom-bottom"/>
-      <Button title="查询"/>
+      <Button title="query"/>
     </component>
     <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,228" size="85,19">
       <Button title="Check"/>

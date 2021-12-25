@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="800,600" bgColorEnabled="true" bgColor="#383838">
-  <controller name="ctrlLoading" pages="0,none,1,loading" selected="0"/>
   <displayList>
     <component id="n10_enbw" name="inputView" src="hkf53" fileName="QueryInputView.xml" xy="10,10" size="380,580">
       <relation target="" sidePair="width-width%,height-height"/>
@@ -11,16 +10,5 @@
     <image id="n39_hkf5" name="n39" src="au3n38" fileName="VtSeperator.png" pkg="nk9ejx23" xy="400,0" size="1,600">
       <relation target="" sidePair="height-height,center-center"/>
     </image>
-    <graph id="n37_hkf5" name="n37" xy="0,0" size="800,600" group="n38_hkf5" type="rect" lineSize="0" fillColor="#33000000">
-      <relation target="n38_hkf5" sidePair="width-width,height-height"/>
-    </graph>
-    <component id="n35_hkf5" name="n35" src="gcza1p" fileName="ProgressBar/ProgressBar.xml" pkg="nk9ejx23" xy="327,264" group="n38_hkf5">
-      <relation target="n38_hkf5" sidePair="center-center,middle-middle"/>
-      <ProgressBar value="50" max="100"/>
-    </component>
-    <group id="n38_hkf5" name="n38" xy="0,0" size="800,600" advanced="true">
-      <gearDisplay controller="ctrlLoading" pages="1"/>
-      <relation target="" sidePair="width-width,height-height"/>
-    </group>
   </displayList>
 </component>

@@ -7,7 +7,6 @@ namespace CrashQuery.UI.Main
 {
     public partial class BaseQueryView : GComponent
     {
-        public Controller m_ctrlLoading;
         public BaseQueryInputView m_inputView;
         public BaseQueryResultView m_resultView;
         public const string URL = "ui://5ifl14obhkf52";
@@ -21,7 +20,6 @@ namespace CrashQuery.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m_ctrlLoading = GetControllerAt(0);
             m_inputView = (BaseQueryInputView)GetChildAt(0);
             m_resultView = (BaseQueryResultView)GetChildAt(1);
         }
