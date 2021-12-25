@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600" bgColorEnabled="true" bgColor="#383838">
+  <displayList>
+    <text id="n4_enbw" name="n4" xy="239,96" size="322,54" font="Microsoft YaHei" fontSize="40" color="#bdbdbd" align="center" text="Crash query tool">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n2_enbw" name="n2" xy="297,234" size="65,19" group="n8_enbw" fontSize="12" color="#bdbdbd" singleLine="true" text="UserName"/>
+    <text id="n3_enbw" name="n3" xy="297,283" size="61,19" group="n8_enbw" fontSize="12" color="#bdbdbd" text="Password"/>
+    <component id="n5_enbw" name="txtUserName" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="297,255" size="206,20" group="n8_enbw"/>
+    <component id="n6_enbw" name="txtPassword" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="297,305" size="206,20" group="n8_enbw">
+      <Label password="true"/>
+    </component>
+    <component id="n7_enbw" name="btnEnter" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="357,349" group="n8_enbw">
+      <Button title="Enter"/>
+    </component>
+    <group id="n8_enbw" name="n8" xy="297,234" size="206,140" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>

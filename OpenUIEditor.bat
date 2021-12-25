@@ -1,0 +1,1 @@
+start %~dp0/Tools/FairyGUI-Editor/FairyGUI-Editor.exe %~dp0/UIProject/CrashQueryUI.fairy

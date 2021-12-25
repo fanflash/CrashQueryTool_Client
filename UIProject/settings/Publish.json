@@ -1,0 +1,35 @@
+{
+  "path": "../Assets/Resources/UI",
+  "branchPath": "",
+  "fileExtension": "bytes",
+  "packageCount": 1,
+  "compressDesc": true,
+  "binaryFormat": true,
+  "jpegQuality": 80,
+  "compressPNG": false,
+  "codeGeneration": {
+    "allowGenCode": true,
+    "codePath": "../Assets/Scripts/UIBase",
+    "classNamePrefix": "Base",
+    "memberNamePrefix": "m_",
+    "packageName": "CrashQuery.UI",
+    "ignoreNoname": true,
+    "getMemberByName": false,
+    "codeType": ""
+  },
+  "includeHighResolution": 0,
+  "branchProcessing": 0,
+  "seperatedAtlasForBranch": false,
+  "atlasSetting": {
+    "maxSize": 2048,
+    "paging": true,
+    "sizeOption": "pot",
+    "forceSquare": false,
+    "allowRotation": true,
+    "trimImage": true
+  },
+  "include2x": false,
+  "include3x": false,
+  "include4x": false,
+  "fileName": "Publish"
+}

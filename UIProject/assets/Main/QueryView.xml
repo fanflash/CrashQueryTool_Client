@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600" bgColorEnabled="true" bgColor="#383838">
+  <displayList>
+    <component id="n10_enbw" name="n10" src="hkf53" fileName="QueryInputView.xml" xy="10,10" size="279,580">
+      <relation target="" sidePair="height-height"/>
+    </component>
+    <component id="n27_enbw" name="n27" src="hkf54" fileName="QueryResultView.xml" xy="471,27"/>
+    <component id="n35_hkf5" name="n35" src="gcza1p" fileName="ProgressBar/ProgressBar.xml" pkg="nk9ejx23" xy="331,121">
+      <ProgressBar value="50" max="100"/>
+    </component>
+  </displayList>
+</component>

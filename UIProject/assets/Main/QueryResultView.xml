@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="295,548">
+  <displayList>
+    <list id="n27_enbw" name="n27" xy="0,31" size="295,477" overflow="scroll"/>
+    <component id="n28_enbw" name="n28" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="111,523">
+      <Button title="下载"/>
+    </component>
+    <text id="n29_enbw" name="n29" xy="6,0" size="52,19" fontSize="12" color="#bdbdbd" text="查询结果"/>
+  </displayList>
+</component>
