@@ -9,6 +9,9 @@ namespace CrashQuery.UI.Main
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(BaseLoginView.URL, typeof(BaseLoginView));
+            UIObjectFactory.SetPackageItemExtension(BaseQueryView.URL, typeof(BaseQueryView));
+            UIObjectFactory.SetPackageItemExtension(BaseQueryInputView.URL, typeof(BaseQueryInputView));
+            UIObjectFactory.SetPackageItemExtension(BaseQueryResultView.URL, typeof(BaseQueryResultView));
             UIObjectFactory.SetPackageItemExtension(BaseMainPanel.URL, typeof(BaseMainPanel));
         }
     }

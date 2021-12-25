@@ -7,7 +7,6 @@ namespace CrashQuery.UI.Main
 {
     public partial class BaseLoginView : GComponent
     {
-        public Controller m_ctrlState;
         public GLabel m_txtUserName;
         public GLabel m_txtPassword;
         public GButton m_btnEnter;
@@ -22,7 +21,6 @@ namespace CrashQuery.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m_ctrlState = GetControllerAt(0);
             m_txtUserName = (GLabel)GetChildAt(3);
             m_txtPassword = (GLabel)GetChildAt(4);
             m_btnEnter = (GButton)GetChildAt(5);

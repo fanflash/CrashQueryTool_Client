@@ -8,6 +8,8 @@ namespace CrashQuery.UI.Main
     public partial class BaseMainPanel : GComponent
     {
         public Controller m_ctrlState;
+        public BaseLoginView m_loginView;
+        public BaseQueryView m_queryView;
         public const string URL = "ui://5ifl14obonwu0";
 
         public static BaseMainPanel CreateInstance()
@@ -20,6 +22,8 @@ namespace CrashQuery.UI.Main
             base.ConstructFromXML(xml);
 
             m_ctrlState = GetControllerAt(0);
+            m_loginView = (BaseLoginView)GetChildAt(1);
+            m_queryView = (BaseQueryView)GetChildAt(2);
         }
     }
 }

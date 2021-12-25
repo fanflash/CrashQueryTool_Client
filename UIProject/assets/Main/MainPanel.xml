@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="800,600" bgColorEnabled="true" bgColor="#383838">
-  <controller name="ctrlState" pages="0,login,1,query" selected="1"/>
+  <controller name="ctrlState" pages="0,login,1,query" selected="0"/>
   <displayList>
+    <graph id="n15_hkf5" name="n15" xy="0,0" size="800,600" type="rect" lineSize="0" fillColor="#ff383838">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
     <component id="n13_hkf5" name="loginView" src="fn7i1" fileName="LoginView.xml" xy="0,0">
       <gearDisplay controller="ctrlState" pages="0"/>
       <relation target="" sidePair="width-width,height-height"/>

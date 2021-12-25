@@ -18,7 +18,7 @@ namespace CrashQuery
 
         void Start()
         {
-            m_mainPanel = new MainPanel(Panel.ui as BaseMain);
+            m_mainPanel = new MainPanel(Panel.ui as BaseMainPanel);
         }
         
         void Update()
@@ -29,11 +29,11 @@ namespace CrashQuery
 
     public class MainPanel
     {
-        private BaseMain m_ui;
-        public MainPanel(BaseMain ui)
+        private BaseMainPanel m_ui;
+        public MainPanel(BaseMainPanel ui)
         {
             m_ui = ui;
-            ui.m_btnEnter.onClick.Add(OnEnterBtnHandler);
+            ui.m_loginView.m_btnEnter.onClick.Add(OnEnterBtnHandler);
         }
 
         private void OnEnterBtnHandler()
