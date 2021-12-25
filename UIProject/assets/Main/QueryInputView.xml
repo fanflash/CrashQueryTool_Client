@@ -2,38 +2,38 @@
 <component size="400,550" bgColorEnabled="true" bgColor="#383838">
   <displayList>
     <text id="n10_enbw" name="n10" xy="0,0" size="65,19" fontSize="12" color="#bdbdbd" singleLine="true" text="Editor ver:"/>
-    <component id="n12_enbw" name="n12" src="gcza18" fileName="ComboBox/ComboBox.xml" pkg="nk9ejx23" xy="72,0" size="218,20">
+    <component id="n12_enbw" name="cbEditorVer" src="gcza18" fileName="ComboBox/ComboBox.xml" pkg="nk9ejx23" xy="72,0" size="218,20">
       <relation target="" sidePair="width-width"/>
       <ComboBox visibleItemCount="10"/>
     </component>
     <text id="n13_enbw" name="n13" xy="1,51" size="39,19" fontSize="12" color="#bdbdbd" text="APK："/>
-    <component id="n15_enbw" name="n15" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="72,50" size="327,20">
+    <component id="n15_enbw" name="txtApk" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="72,50" size="327,20">
       <relation target="" sidePair="width-width"/>
     </component>
-    <list id="n16_enbw" name="n16" xy="72,76" size="327,141" overflow="scroll" defaultItem="ui://nk9ejx23au3n4s">
+    <list id="n16_enbw" name="listApk" xy="72,76" size="327,141" overflow="scroll" defaultItem="ui://nk9ejx23au3n4s">
       <relation target="" sidePair="width-width"/>
       <item/>
       <item/>
       <item/>
     </list>
     <text id="n17_enbw" name="n17" xy="0,26" size="61,19" fontSize="12" color="#bdbdbd" singleLine="true" text="Cpu type:"/>
-    <component id="n19_enbw" name="n19" src="gcza18" fileName="ComboBox/ComboBox.xml" pkg="nk9ejx23" xy="72,25" size="327,20">
+    <component id="n19_enbw" name="cbCputype" src="gcza18" fileName="ComboBox/ComboBox.xml" pkg="nk9ejx23" xy="72,25" size="327,20">
       <relation target="" sidePair="width-width"/>
       <ComboBox visibleItemCount="10"/>
     </component>
     <text id="n20_enbw" name="n20" xy="0,228" size="111,19" fontSize="12" color="#bdbdbd" text="Original call stack:"/>
-    <component id="n21_enbw" name="n21" src="xualt" fileName="Button/Checkbox.xml" pkg="nk9ejx23" xy="295,0" size="104,19">
+    <component id="n21_enbw" name="cbDevelpment" src="xualt" fileName="Button/Checkbox.xml" pkg="nk9ejx23" xy="295,0" size="104,19">
       <relation target="" sidePair="left-left,right-right"/>
       <Button title="Development"/>
     </component>
-    <component id="n24_enbw" name="n24" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,253" size="399,265">
+    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,253" size="399,265">
       <relation target="" sidePair="width-width,bottomext-bottom"/>
     </component>
-    <component id="n26_enbw" name="n26" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="157,525">
+    <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="157,525">
       <relation target="" sidePair="center-center,bottom-bottom"/>
       <Button title="查询"/>
     </component>
-    <component id="n34_hkf5" name="n34" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,228" size="85,19">
+    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,228" size="85,19">
       <Button title="Check"/>
     </component>
   </displayList>

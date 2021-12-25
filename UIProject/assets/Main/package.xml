@@ -2,8 +2,8 @@
 <packageDescription id="5ifl14ob">
   <resources>
     <component id="onwu0" name="MainPanel.xml" path="/" exported="true"/>
-    <component id="fn7i1" name="LoginView.xml" path="/" exported="true"/>
-    <component id="hkf52" name="QueryView.xml" path="/" exported="true"/>
+    <component id="fn7i1" name="LoginView.xml" path="/"/>
+    <component id="hkf52" name="QueryView.xml" path="/"/>
     <component id="hkf53" name="QueryInputView.xml" path="/"/>
     <component id="hkf54" name="QueryResultView.xml" path="/"/>
   </resources>
