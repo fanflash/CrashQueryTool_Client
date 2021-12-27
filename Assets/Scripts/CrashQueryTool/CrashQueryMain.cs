@@ -21,7 +21,7 @@ namespace CrashQuery
             UIObjectFactory.SetPackageItemExtension(BaseLoginView.URL, typeof(BaseLoginView));
             UIObjectFactory.SetPackageItemExtension(BaseQueryView.URL, typeof(QueryView));
             UIObjectFactory.SetPackageItemExtension(BaseQueryInputView.URL, typeof(QueryInputView));
-            UIObjectFactory.SetPackageItemExtension(BaseQueryResultView.URL, typeof(BaseQueryResultView));
+            UIObjectFactory.SetPackageItemExtension(BaseQueryResultView.URL, typeof(QueryResultView));
             UIObjectFactory.SetPackageItemExtension(BaseMainPanel.URL, typeof(MainPanel));
         }
 
@@ -59,7 +59,17 @@ namespace CrashQuery
 
         private void OnEnterBtnHandler()
         {
-            m_ctrlState.selectedPage = "query";
+            //TODO: 后面有时间再做用户验证和token这块。
+            var userName = m_loginView.m_txtUserName.text;
+            var password = m_loginView.m_txtPassword.text;
+            if (userName == "admin" && password == "admin")
+            {
+                m_ctrlState.selectedPage = "query";
+            }
+            else
+            {
+                MessageBox.Error("Name or password is error", "Retry");
+            }
         }
     }
     

@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CrashQuery.Core;
 using UnityEngine.Networking;
 
 namespace CrashQuery.Data
@@ -12,12 +13,17 @@ namespace CrashQuery.Data
     public class QueryDao
     {
         public bool UseGetMethod = false;
+        public MemStackFrame[] LastSuccessResult { get; private set; }
+        public GEvent.Proxy OnUpdate => m_onUpdate.Interface;
+
+        private GEvent m_onUpdate = new GEvent();
         private AppDao.Context m_context;
         private string m_apiUrl;
         
         public QueryDao(AppDao.Context context)
         {
             m_context = context;
+            LastSuccessResult = Array.Empty<MemStackFrame>();
         }
 
         public int Request(QueryRequest param, Action<ReqResult<QueryResult>> callback = null)
@@ -42,7 +48,17 @@ namespace CrashQuery.Data
             
             var reqItem = new ReqItem<QueryResult>(request.SendWebRequest());
             reqItem.OnComplete.Add(callback);
+            reqItem.OnComplete.Add(OnCompleteHandler);
             return reqItem.ReqId;
+        }
+
+        private void OnCompleteHandler(ReqResult<QueryResult> obj)
+        {
+            if (!obj.Error.HasErr && obj.Data.State == 2)
+            {
+                LastSuccessResult = obj.Data.Data;
+                m_onUpdate.Do();
+            }
         }
     }
     

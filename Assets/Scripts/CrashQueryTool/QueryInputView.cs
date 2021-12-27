@@ -34,18 +34,19 @@ namespace CrashQuery
             param.Token = "124";
             param.IsDev = false;
             param.IsSync = true;
-            AppDao.Query.Request(param, QueryCompleteHanlder);
+            var reqId = AppDao.Query.Request(param, QueryCompleteHandler);
+            Debug.Log($"[Query]new request, reqId={reqId}");
         }
 
-        private void QueryCompleteHanlder(ReqResult<QueryResult> obj)
+        private void QueryCompleteHandler(ReqResult<QueryResult> obj)
         {
             if (obj.Error.HasErr)
             {
                 MessageBox.Error(obj.Error.ToString(), "ok");
+                Debug.Log($"[Query]Request error, reqId={obj.ReqId},");
                 return;
             }
-            
-            Debug.Log(obj.ReqId);
+            Debug.Log($"[Query]Request success, reqId={obj.ReqId}, taskId={obj.Data.Id}, state={obj.Data.State}");
         }
 
         private void ApkListClickItemHandler(EventContext context)

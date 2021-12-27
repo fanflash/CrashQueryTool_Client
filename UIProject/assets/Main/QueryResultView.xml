@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="295,548" bgColorEnabled="true" bgColor="#383838">
   <displayList>
-    <list id="n27_enbw" name="listResult" xy="0,23" size="295,492" overflow="scroll">
+    <list id="n27_enbw" name="listResult" xy="0,23" size="295,492" overflow="scroll" defaultItem="ui://5ifl14oblkr4ixicv0" autoClearItems="true">
       <relation target="" sidePair="width-width,height-height"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
     </list>
     <component id="n28_enbw" name="btnDown" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="89,523" size="117,25">
-      <relation target="" sidePair="bottom-bottom"/>
+      <relation target="" sidePair="center-center,bottom-bottom"/>
       <Button title="Download(.csv)"/>
     </component>
     <text id="n29_enbw" name="n29" xy="0,0" size="45,19" fontSize="12" color="#bdbdbd" text="Result:"/>
