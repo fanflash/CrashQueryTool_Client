@@ -6,11 +6,15 @@
       <relation target="" sidePair="width-width"/>
       <ComboBox visibleItemCount="10"/>
     </component>
-    <text id="n13_enbw" name="n13" xy="1,51" size="39,19" fontSize="12" color="#bdbdbd" text="APK："/>
-    <component id="n15_enbw" name="txtApk" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="72,50" size="327,20">
+    <text id="n13_enbw" name="n13" xy="1,51" size="66,19" fontSize="12" color="#bdbdbd" text="Find apk："/>
+    <component id="n15_enbw" name="txtFilter" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="72,50" size="327,20">
       <relation target="" sidePair="width-width"/>
+      <Label prompt="[color=#7E7E7E]Please enter the filter strings[/color]"/>
     </component>
-    <list id="n16_enbw" name="listApk" xy="72,76" size="327,141" overflow="scroll" defaultItem="ui://nk9ejx23au3n4s">
+    <image id="n37_k4k0" name="n37" src="gcza1r" fileName="Input/input_bg.png" pkg="nk9ejx23" xy="70,74" size="329,133">
+      <relation target="n16_enbw" sidePair="width-width,height-height"/>
+    </image>
+    <list id="n16_enbw" name="listApk" xy="72,76" size="327,131" overflow="scroll" defaultItem="ui://nk9ejx23au3n4s">
       <relation target="" sidePair="width-width"/>
       <item/>
       <item/>
@@ -21,20 +25,27 @@
       <relation target="" sidePair="width-width"/>
       <ComboBox visibleItemCount="10"/>
     </component>
-    <text id="n20_enbw" name="n20" xy="0,228" size="111,19" fontSize="12" color="#bdbdbd" text="Original call stack:"/>
+    <text id="n20_enbw" name="n20" xy="0,240" size="111,19" fontSize="12" color="#bdbdbd" text="Original call stack:"/>
     <component id="n21_enbw" name="cbDevelpment" src="xualt" fileName="Button/Checkbox.xml" pkg="nk9ejx23" xy="295,0" size="104,19">
       <relation target="" sidePair="left-left,right-right"/>
       <Button title="Development"/>
     </component>
-    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,253" size="399,265">
+    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,263" size="399,255">
       <relation target="" sidePair="width-width,bottomext-bottom"/>
     </component>
     <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="157,525">
       <relation target="" sidePair="center-center,bottom-bottom"/>
       <Button title="query"/>
     </component>
-    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,228" size="85,19">
+    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,240" size="85,19">
       <Button title="Check"/>
     </component>
+    <text id="n35_k4k0" name="n35" xy="1,214" size="70,19" fontSize="12" color="#bdbdbd" autoSize="none" text="Select apk:"/>
+    <image id="n38_k4k0" name="n38" src="gcza1r" fileName="Input/input_bg.png" pkg="nk9ejx23" xy="71,213" size="329,21">
+      <relation target="n36_k4k0" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n36_k4k0" name="txtSelectApk" xy="72,214" size="327,19" fontSize="12" color="#bdbdbd" autoSize="none" singleLine="true" text="none">
+      <relation target="" sidePair="width-width"/>
+    </text>
   </displayList>
 </component>

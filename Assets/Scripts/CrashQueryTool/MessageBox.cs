@@ -4,7 +4,9 @@
 
 using System;
 using CrashQuery.UI.Main;
+using FairyGUI;
 using FairyGUI.Utils;
+using UnityEngine;
 
 namespace CrashQuery
 {
@@ -24,7 +26,7 @@ namespace CrashQuery
 
         public static void Close()
         {
-            m_inst.CloseInner();
+            m_inst.CloseInner(false);
         }
 
     }
@@ -32,6 +34,7 @@ namespace CrashQuery
     public partial class MessageBox
     {
         private Action m_callback;
+        private float m_startShowTime;
         
         public override void ConstructFromXML(XML xml)
         {
@@ -58,6 +61,7 @@ namespace CrashQuery
             m_txtMsg.text = message;
             m_ctrlError.selectedPage = "msg";
             m_callback = null;
+            ResetClose();
         }
 
         private void ErrorInner(string error, string btnTitle, Action callback = null)
@@ -67,12 +71,38 @@ namespace CrashQuery
             m_ctrlError.selectedPage = "error";
             m_callback = callback;
             m_btnOk.title = btnTitle;
+            ResetClose();
         }
 
-        private void CloseInner()
+        private void CloseInner(bool immediate = true)
+        {
+            if (immediate)
+            {
+                m_startShowTime = 0;
+            }
+            m_callback = null;
+            
+            const float showLimit = 1f;
+            var d = Time.realtimeSinceStartup - m_startShowTime - showLimit;
+            if (d > 0)
+            {
+                visible = false;
+            }
+            else
+            {
+                Timers.inst.Add(-d, 1, CloseHandler);
+            }
+        }
+
+        private void CloseHandler(object param)
         {
             visible = false;
-            m_callback = null;
+        }
+
+        private void ResetClose()
+        {
+            m_startShowTime = Time.realtimeSinceStartup;
+            Timers.inst.Remove(CloseHandler);
         }
     }
 }
