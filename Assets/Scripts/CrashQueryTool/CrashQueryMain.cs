@@ -13,6 +13,7 @@ namespace CrashQuery
 
         private void Awake()
         {
+            AppDao.Query.UseGetMethod = true;
             AppDao.SetRootUrl("http://localhost:8080/");
             UIPackage.AddPackage("UI/Basic");
             MainBinder.BindAll();

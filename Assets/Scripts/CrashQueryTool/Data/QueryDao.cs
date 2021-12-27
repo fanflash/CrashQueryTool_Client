@@ -4,12 +4,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine.Networking;
 
 namespace CrashQuery.Data
 {
     public class QueryDao
     {
+        public bool UseGetMethod = false;
         private AppDao.Context m_context;
         private string m_apiUrl;
         
@@ -24,8 +26,20 @@ namespace CrashQuery.Data
             {
                 m_apiUrl = $"{m_context.RootUrl}/query";
             }
+
+            UnityWebRequest request;
+            if (UseGetMethod)
+            {
+                var bytes = UnityWebRequest.SerializeSimpleForm(param.ToDict());
+                var queryStr = Encoding.UTF8.GetString(bytes);
+                request = UnityWebRequest.Get($"{m_apiUrl}?{queryStr}");
+            }
+            else
+            {
+                //Unity的post有BUG，传给服务器的Content-Lenght为0，导致服务器取不出body的数据，所以目前只能用Get
+                request = UnityWebRequest.Post(m_apiUrl, param.ToDict());
+            }
             
-            var request = UnityWebRequest.Post(m_apiUrl,param.ToDict());
             var reqItem = new ReqItem<QueryResult>(request.SendWebRequest());
             reqItem.OnComplete.Add(callback);
             return reqItem.ReqId;
