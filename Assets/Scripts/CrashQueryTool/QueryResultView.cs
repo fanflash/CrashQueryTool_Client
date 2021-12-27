@@ -2,15 +2,12 @@
 // Date:   2021.12.25
 // Desc:
 
-using System;
 using System.Collections.Generic;
-using System.Data;
 using CrashQuery.Core;
 using CrashQuery.Data;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
-using UnityEditor.UIElements;
 
 namespace CrashQuery
 {

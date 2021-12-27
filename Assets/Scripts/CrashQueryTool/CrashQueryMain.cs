@@ -14,7 +14,11 @@ namespace CrashQuery
         private void Awake()
         {
             AppDao.Query.UseGetMethod = true;
+#if UNITY_EDITOR
             AppDao.SetRootUrl("http://localhost:8080/");
+#else
+            AppDao.SetRootUrl("");
+#endif
             UIPackage.AddPackage("UI/Basic");
             MainBinder.BindAll();
             UIObjectFactory.SetPackageItemExtension(BaseMessageBox.URL, typeof(MessageBox));
