@@ -66,7 +66,8 @@ namespace CrashQuery.Data
     {
         public string EditorVersion;
         public string CpuType;
-        public string Apk;
+        public string Group;
+        public string Symbol;
         public bool IsDev;
         public string Stack;
         public bool IsSync;
@@ -77,7 +78,8 @@ namespace CrashQuery.Data
             var t = new Dictionary<string, string>(7);
             t["editor"] = EditorVersion;
             t["cpuType"] = CpuType;
-            t["apk"] = Apk;
+            t["group"] = Group;
+            t["symbol"] = Symbol;
             t["stack"] = Stack;
             t["token"] = Token;
             if (IsSync)

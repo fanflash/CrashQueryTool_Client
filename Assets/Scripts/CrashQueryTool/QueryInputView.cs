@@ -14,17 +14,17 @@ namespace CrashQuery
 {
     public class QueryInputView:BaseQueryInputView
     {
-        private GListExt<string,GButton> m_listApkExt;
-        private string m_selectApk;
+        private GListExt<SymbolVo,GButton> m_listApkExt;
+        private SymbolVo m_selectApk;
 
         public override void ConstructFromXML(XML xml)
         {
             base.ConstructFromXML(xml);
-            m_listApkExt = new GListExt<string, GButton>(m_listApk, ItemRenderer);
-            m_cbEditorVer.onChanged.Add(UpdateApk);
+            m_listApkExt = new GListExt<SymbolVo, GButton>(m_listApk, ItemRenderer);
+            m_cbEditorVer.onChanged.Add(UpdateSymbol);
             m_listApk.onClickItem.Add(ApkListClickItemHandler);
             var filterInput = m_txtFilter.GetChild("title") as GTextInput;
-            filterInput?.onChanged.Add(UpdateApk);
+            filterInput?.onChanged.Add(UpdateSymbol);
             m_btnQuery.onClick.Add(OnClickQueryHandler);
         }
 
@@ -32,7 +32,8 @@ namespace CrashQuery
         {
             var param = new QueryRequest();
             param.EditorVersion = m_cbEditorVer.text;
-            param.Apk = m_selectApk;
+            param.Group = m_selectApk.Group;
+            param.Symbol = m_selectApk.Symbol;
             param.CpuType = m_cbCputype.text;
             param.Stack = m_txtCallStack.text;
             param.Token = "124";
@@ -50,7 +51,8 @@ namespace CrashQuery
                 MessageBox.Error("[Cpu type]cannot be null", "Ok");
                 return;
             }
-            if (string.IsNullOrEmpty(param.Apk))
+            if (string.IsNullOrEmpty(param.Symbol) ||
+                string.IsNullOrEmpty(param.Group))
             {
                 MessageBox.Error("[Select apk]cannot be null", "Ok");
                 return;
@@ -81,24 +83,35 @@ namespace CrashQuery
         private void ApkListClickItemHandler(EventContext context)
         {
             m_selectApk = m_listApkExt.SelectItem;
-            m_txtSelectApk.text = m_selectApk;
-           
+            
             //缩短到完全可以显示
-            var sb = SbPool.Get();
-            var t = m_selectApk;
-            while (t.Length > 4 && m_txtSelectApk.textWidth > m_txtSelectApk.width)
+            var nameSb = SbPool.Get();
+            nameSb.Append(m_selectApk.Symbol);
+            
+            var titleSb = SbPool.Get();
+            var prefix = titleSb.Append('[').Append(m_selectApk.Group).Append("] ").ToString();
+            titleSb.Append(nameSb);
+            
+            for (int i = 0; i < m_selectApk.Name.Length; i++)
             {
-                t = t.Substring(3);
-                sb.Append("...").Append(t);
-                m_txtSelectApk.text = sb.ToString();
-                sb.Clear();
+                m_txtSelectApk.text = titleSb.ToString();
+                titleSb.Clear();
+                if (nameSb.Length < 4 ||
+                    m_txtSelectApk.textWidth < m_txtSelectApk.width)
+                {
+                    break;
+                }
+                nameSb.Remove(0, 3);
+                titleSb.Append(prefix).Append("...").Append(nameSb);
             }
-            SbPool.Put(sb);
+            SbPool.Put(nameSb);
+            SbPool.Put(titleSb);
         }
 
-        private void ItemRenderer(int index, string itemData, GButton item, bool isSelect)
+        private void ItemRenderer(int index, SymbolVo itemData, GButton item, bool isSelect)
         {
-            item.title = itemData;
+            item.title = itemData.Name;
+            item.data = itemData;
         }
 
         public void UpdateOption()
@@ -107,7 +120,7 @@ namespace CrashQuery
             var names = new string[editors.Length];
             for (int i = 0; i < editors.Length; i++)
             {
-                names[i] = editors[i].EditorVersion;
+                names[i] = editors[i].Editor;
             }
             m_cbEditorVer.items = names;
             m_cbEditorVer.values = names;
@@ -118,40 +131,46 @@ namespace CrashQuery
                 "arm64-v8a",
             };
             m_cbCputype.items = cpuTypes;
-            UpdateApk();
+            UpdateSymbol();
             m_txtSelectApk.text = "none";
             m_selectApk = null;
         }
-
-        public void UpdateApk()
+        
+        public void UpdateSymbol()
         {
             var editorVo = AppDao.Option.GetEditorByVer(m_cbEditorVer.value);
             if (editorVo == null)
             {
                 m_listApkExt.Data = null;
+                return;
+            }
+            
+            if (editorVo.Symbols == null)
+            {
+                editorVo.InitSymbols();
+            }
+            
+            m_cacheFilterList.Clear();
+            if (!string.IsNullOrEmpty(m_txtFilter.text))
+            {
+                var filterStr = m_txtFilter.text;
+                var filters = m_cacheFilterList;
+                for (int i = 0; i < editorVo.Symbols.Length; i++)
+                {
+                    var s = editorVo.Symbols[i];
+                    if (s.Name.Contains(filterStr))
+                    {
+                        filters.Add(s);
+                    }
+                }
+                m_listApkExt.Data = filters;
             }
             else
             {
-                if (!string.IsNullOrEmpty(m_txtFilter.text))
-                {
-                    var filterStr = m_txtFilter.text;
-                    var filters = ListPool<string>.Get();
-                    for (int i = 0; i < editorVo.Apk.Length; i++)
-                    {
-                        var apk = editorVo.Apk[i];
-                        if (apk.Contains(filterStr))
-                        {
-                            filters.Add(apk);
-                        }
-                    }
-
-                    m_listApkExt.Data = filters;
-                }
-                else
-                {
-                    m_listApkExt.Data = editorVo.Apk;
-                }
+                m_listApkExt.Data = editorVo.Symbols;
             }
         }
+
+        private List<SymbolVo> m_cacheFilterList = new List<SymbolVo>();
     }
 }

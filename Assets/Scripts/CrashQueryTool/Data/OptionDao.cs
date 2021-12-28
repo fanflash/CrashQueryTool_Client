@@ -3,6 +3,7 @@
 // Desc:   选项数据访问接口
 
 using System;
+using System.Collections.Generic;
 using CrashQuery.Core;
 using UnityEngine.Networking;
 
@@ -11,7 +12,7 @@ namespace CrashQuery.Data
     public class OptionDao
     {
         public GEvent.Proxy OnUpdate => m_onUpdate.Interface;
-        public EditorVo[] Editors;
+        public EditorSymbolVo[] Editors;
 
         private GEvent m_onUpdate = new GEvent();
         
@@ -22,10 +23,10 @@ namespace CrashQuery.Data
         public OptionDao(AppDao.Context context)
         {
             m_context = context;
-            Editors = Array.Empty<EditorVo>();
+            Editors = Array.Empty<EditorSymbolVo>();
         }
 
-        public EditorVo GetEditorByVer(string editorVersion)
+        public EditorSymbolVo GetEditorByVer(string editorVersion)
         {
             if (Editors.Length < 1)
             {
@@ -35,7 +36,7 @@ namespace CrashQuery.Data
             for (int i = 0; i < Editors.Length; i++)
             {
                 var d = Editors[i];
-                if (d.EditorVersion == editorVersion)
+                if (d.Editor == editorVersion)
                 {
                     return d;
                 }
@@ -67,13 +68,13 @@ namespace CrashQuery.Data
         {
             if (!obj.Error.HasErr)
             {
-                if (obj.Data != null && obj.Data.Items != null)
+                if (obj.Data != null && obj.Data.Editors != null)
                 {
-                    Editors = obj.Data.Items;
+                    Editors = obj.Data.Editors;
                 }
                 else
                 {
-                    Editors = Array.Empty<EditorVo>();
+                    Editors = Array.Empty<EditorSymbolVo>();
                 }
             }
             m_reqItem = null;
@@ -88,14 +89,66 @@ namespace CrashQuery.Data
     [Serializable]
     public class OptionResult
     {
-        public EditorVo[] Items;
+        public EditorSymbolVo[] Editors;
         public int BuildId;
     }
 
     [Serializable]
-    public class EditorVo
+    public class EditorSymbolVo
     {
-        public string EditorVersion;
+        public string Editor;
         public string[] Apk;
+        public SymbolGroupVo[] Groups;
+        
+        //这个是非服务器发来的序列化数据对象
+        [NonSerialized]
+        public SymbolVo[] Symbols;
+
+        public void InitSymbols()
+        {
+            if (Symbols != null)
+            {
+                return;
+            }
+
+            if (Groups == null)
+            {
+                return;
+            }
+
+            var sb = SbPool.Get();
+            var symbols = new List<SymbolVo>();
+            for (int i = 0; i < Groups.Length; i++)
+            {
+                var g = Groups[i];
+                for (int j = 0; j < g.Symbols.Length; j++)
+                {
+                    var s = new SymbolVo();
+                    s.Group = g.Name;
+                    s.Symbol = g.Symbols[j];
+                    
+                    sb.Clear();
+                    sb.Append('[').Append(s.Group).Append("] ").Append(s.Symbol);
+                    s.Name = sb.ToString();
+                    symbols.Add(s);
+                }
+            }
+            Symbols = symbols.ToArray();
+            SbPool.Put(sb);
+        }
+    }
+
+    [Serializable]
+    public class SymbolGroupVo
+    {
+        public string Name;
+        public string[] Symbols;
+    }
+
+    public class SymbolVo
+    {
+        public string Name;
+        public string Group;
+        public string Symbol;
     }
 }
