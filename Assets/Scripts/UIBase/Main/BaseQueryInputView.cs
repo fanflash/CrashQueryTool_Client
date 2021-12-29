@@ -13,6 +13,7 @@ namespace CrashQuery.UI.Main
         public GComboBox m_cbCputype;
         public GButton m_cbDevelpment;
         public GLabel m_txtCallStack;
+        public GLabel m_txtParingTrace;
         public GButton m_btnQuery;
         public GButton m_btnCheck;
         public GTextField m_txtSelectApk;
@@ -33,9 +34,10 @@ namespace CrashQuery.UI.Main
             m_cbCputype = (GComboBox)GetChildAt(7);
             m_cbDevelpment = (GButton)GetChildAt(9);
             m_txtCallStack = (GLabel)GetChildAt(10);
-            m_btnQuery = (GButton)GetChildAt(11);
-            m_btnCheck = (GButton)GetChildAt(12);
-            m_txtSelectApk = (GTextField)GetChildAt(15);
+            m_txtParingTrace = (GLabel)GetChildAt(11);
+            m_btnQuery = (GButton)GetChildAt(12);
+            m_btnCheck = (GButton)GetChildAt(13);
+            m_txtSelectApk = (GTextField)GetChildAt(16);
         }
     }
 }

@@ -8,6 +8,7 @@
     <component id="hkf54" name="QueryResultView.xml" path="/"/>
     <component id="ekry5" name="MessageBox.xml" path="/"/>
     <component id="lkr4ixicv0" name="StackListItem.xml" path="/"/>
+    <component id="kc5pixicv1" name="AddressItem.xml" path="/" exported="true"/>
   </resources>
   <publish name="Main" genCode="true"/>
 </packageDescription>
