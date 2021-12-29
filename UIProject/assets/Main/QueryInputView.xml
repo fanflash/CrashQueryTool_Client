@@ -30,14 +30,20 @@
       <relation target="" sidePair="left-left,right-right"/>
       <Button title="Development"/>
     </component>
-    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,263" size="399,255">
-      <relation target="" sidePair="width-width,bottomext-bottom"/>
+    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,263" size="195,258">
+      <relation target="" sidePair="bottomext-bottom,leftext-left"/>
+      <relation target="n34_hkf5" sidePair="rightext-left"/>
+    </component>
+    <component id="n43_awlo" name="txtParingTrace" src="awloixicv2" fileName="Input/TextPareArea.xml" pkg="nk9ejx23" xy="203,263" size="190,256">
+      <relation target="" sidePair="rightext-right,bottomext-bottom"/>
+      <relation target="n34_hkf5" sidePair="leftext-right"/>
     </component>
     <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="157,525">
       <relation target="" sidePair="center-center,bottom-bottom"/>
       <Button title="query"/>
     </component>
-    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="118,240" size="85,19">
+    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="125,240" size="85,19">
+      <relation target="" sidePair="center-center"/>
       <Button title="Check"/>
     </component>
     <text id="n35_k4k0" name="n35" xy="1,214" size="70,19" fontSize="12" color="#bdbdbd" autoSize="none" text="Select apk:"/>
@@ -46,6 +52,9 @@
     </image>
     <text id="n36_k4k0" name="txtSelectApk" xy="72,214" size="327,19" fontSize="12" color="#bdbdbd" autoSize="none" singleLine="true" text="none">
       <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n41_kc5p" name="n41" xy="204,240" size="68,19" fontSize="12" color="#bdbdbd" text="After Parse">
+      <relation target="n43_awlo" sidePair="left-left"/>
     </text>
   </displayList>
 </component>
