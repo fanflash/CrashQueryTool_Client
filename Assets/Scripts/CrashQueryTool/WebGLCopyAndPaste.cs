@@ -56,7 +56,7 @@ namespace CrashQuery
       [AOT.MonoPInvokeCallback( typeof(StringCallback) )]
       private static void GetClipboard(string key)
       {
-        SendKey(key);
+        //SendKey(key);
         passCopyToBrowser(GUIUtility.systemCopyBuffer);
       }
 

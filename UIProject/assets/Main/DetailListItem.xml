@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="344,48" extention="Button" bgColorEnabled="true" bgColor="#383838">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,disabled,5,selectedDisabled" selected="0"/>
+  <controller name="ctrlSelLib" pages="0,disable,1,enable" selected="0"/>
+  <displayList>
+    <image id="n0" name="n0" src="au3n4v" fileName="List/images/listitem_hover.png" pkg="nk9ejx23" xy="0,0" size="344,48">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n20_mirg" name="library" xy="10,17" size="73,19" fontSize="12" color="#bdbdbd" align="center" vAlign="middle" autoSize="none" text="library&#xA;"/>
+    <text id="n21_mirg" name="code" xy="95,5" size="232,19" fontSize="12" color="#bdbdbd" autoSize="none" text="jjjjj">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n22_mirg" name="path" xy="95,27" size="232,19" fontSize="12" color="#bdbdbd" autoSize="none" text="jjjjj">
+      <relation target="" sidePair="width-width"/>
+    </text>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

@@ -15,7 +15,7 @@ namespace CrashQuery
         {
             AppDao.Query.UseGetMethod = true;
 #if UNITY_EDITOR
-            AppDao.SetRootUrl("http://localhost:8080/");
+            AppDao.SetRootUrl("http://10.0.18.77:8082/");
 #else
             AppDao.SetRootUrl("");
 #endif
