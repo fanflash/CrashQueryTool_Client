@@ -220,7 +220,7 @@ namespace CrashQuery
                 symbol = m_parseLineStack[1];
                 if (m_parseLineStack[1].StartsWith("split_config"))
                 {
-                    symbol = "??";
+                    symbol = "";
                 }
             }
             

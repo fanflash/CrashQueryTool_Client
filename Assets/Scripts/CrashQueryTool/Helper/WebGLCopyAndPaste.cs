@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using FairyGUI;
 using UnityEngine;
 
-namespace CrashQuery
+namespace CrashQuery.Helper
 {
     public class WebGLCopyAndPaste
     {
@@ -17,7 +17,9 @@ namespace CrashQuery
 
         [DllImport("__Internal")]
         private static extern void passCopyToBrowser(string str);
-
+        
+        [DllImport("__Internal")]
+        private static extern void WebGLSaveFile(string str, string filename);
         delegate void StringCallback(string content);
 
 
@@ -66,6 +68,11 @@ namespace CrashQuery
         GUIUtility.systemCopyBuffer = str;
       }
 
+
+      public static void SaveFile(string data, string filename)
+      {
+          WebGLSaveFile(data,filename);
+      }
 #endif
     }
 }

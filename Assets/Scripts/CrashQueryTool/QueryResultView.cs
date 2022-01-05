@@ -126,7 +126,7 @@ namespace CrashQuery
         /// <param name="context">转csv输出</param>
         private void OnClickDownLoadHandle(EventContext context)
         {
-            
+            ExportDao.Inst.OnSaveFile();
         }
         
         /// <summary>
