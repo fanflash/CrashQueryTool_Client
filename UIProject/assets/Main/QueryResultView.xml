@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="295,548" bgColorEnabled="true" bgColor="#383838">
   <displayList>
-    <list id="n27_enbw" name="listResult" xy="0,23" size="295,492" overflow="scroll" defaultItem="ui://5ifl14oblkr4ixicv0" autoClearItems="true">
-      <relation target="" sidePair="width-width,height-height"/>
+    <list id="n27_enbw" name="listResult" xy="0,23" size="295,305" overflow="scroll" defaultItem="ui://5ifl14oblkr4ixicv0" autoClearItems="true">
+      <relation target="" sidePair="width-width,bottomext-bottom"/>
       <item/>
       <item/>
       <item/>
@@ -12,10 +12,29 @@
       <item/>
       <item/>
     </list>
-    <component id="n28_enbw" name="btnDown" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="89,523" size="117,25">
-      <relation target="" sidePair="center-center,bottom-bottom"/>
+    <component id="n28_enbw" name="btnDown" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="164,525" size="117,25">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
       <Button title="Download(.csv)"/>
     </component>
     <text id="n29_enbw" name="n29" xy="0,0" size="45,19" fontSize="12" color="#bdbdbd" text="Result:"/>
+    <image id="n38_mirg" name="n38" src="gcza1r" fileName="Input/input_bg.png" pkg="nk9ejx23" xy="0,332" size="294,187" group="n34_mirg">
+      <relation target="" sidePair="width-width"/>
+    </image>
+    <text id="n37_mirg" name="n37" xy="9,334" size="63,19" group="n34_mirg" fontSize="12" color="#0000ff" align="center" autoSize="none" text="Detail Info"/>
+    <list id="n30_g3a7" name="listDetail" xy="0,379" size="295,139" group="n34_mirg" overflow="scroll" defaultItem="ui://5ifl14obmirgixicv3" autoClearItems="true">
+      <relation target="" sidePair="width-width"/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <text id="n32_mirg" name="n32" xy="10,357" size="42,20" group="n34_mirg" fontSize="12" color="#bdbdbd" align="center" autoSize="none" text="index"/>
+    <text id="n33_mirg" name="address" xy="87,357" size="125,19" group="n34_mirg" fontSize="12" color="#bdbdbd" align="center" autoSize="none" text=""/>
+    <group id="n34_mirg" name="n34" xy="0,332" size="295,187" advanced="true">
+      <relation target="" sidePair="bottom-bottom"/>
+    </group>
+    <component id="n35_mirg" name="btnCopy" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="8,525" size="117,25">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+      <Button title="Copy"/>
+    </component>
   </displayList>
 </component>

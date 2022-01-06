@@ -14,11 +14,18 @@ namespace CrashQuery
     public class QueryResultView:BaseQueryResultView
     {
         private GListExt<StackFrameInfo, BaseStackListItem> m_listResultEx;
+        private GListExt<StackFrame, BaseDetailListItem> m_DetailResEx;
+        
         public override void ConstructFromXML(XML xml)
         {
             base.ConstructFromXML(xml);
-            m_listResultEx = new GListExt<StackFrameInfo, BaseStackListItem>(m_listResult, ItemRenderer);
+            m_listResultEx = new GListExt<StackFrameInfo, BaseStackListItem>(m_listResult, ItemRenderer, true, null, OnClickItem);
             AppDao.Query.OnUpdate.Add(UpdateView);
+            
+            m_btnDown.onClick.Add(OnClickDownLoadHandle);
+
+            m_DetailResEx = new GListExt<StackFrame, BaseDetailListItem>(m_listDetail, ItemRenderer);
+            m_btnCopy.onClick.Add(OnClickCopyHandle);
         }
 
         private void UpdateView()
@@ -36,13 +43,19 @@ namespace CrashQuery
 
         private void ItemRenderer(int index, StackFrameInfo itemData, BaseStackListItem item, bool isSelect)
         {
+            int indexLib = 0;
             if (itemData.Libs == null)
             {
                 itemData.Libs = new string[itemData.Frame.AllLibStack.Length];
+                
                 for (int i = 0; i < itemData.Frame.AllLibStack.Length; i++)
                 {
                     var t = itemData.Frame.AllLibStack[i];
                     itemData.Libs[i] = t.Library;
+                    if (t.Method.Code != "??")
+                    {
+                        indexLib = i;
+                    }
                 }
             }
 
@@ -52,13 +65,32 @@ namespace CrashQuery
             
             if (string.IsNullOrEmpty(itemData.SelectLib))
             {
-                itemData.SelectLib = itemData.Libs[0];
+                itemData.SelectLib = itemData.Libs[indexLib];
             }
 
             item.m_ctrlSelLib.selectedPage = itemData.Libs.Length > 1 ? "enable" : "disable";
             item.data = itemData;
             UpdateItemByLib(item, itemData.SelectLib);
-            item.m_cbLib.onChanged.Add(OnSelectHandler);
+            item.m_cbLib.onChanged.Set(OnSelectHandler);
+        }
+        
+        /// <summary>
+        /// 选择
+        /// </summary>
+        /// <param name="itemdata"></param>
+        /// <param name="itemrender"></param>
+        private void OnClickItem(StackFrameInfo itemdata, BaseStackListItem itemrender)
+        {
+            m_DetailResEx.Data = itemdata.Frame.AllLibStack;
+            m_address.text = itemdata.Frame.Address;
+        }
+        
+        
+        private void ItemRenderer(int index, StackFrame itemdata, BaseDetailListItem item, bool isselect)
+        {
+            item.m_code.text = itemdata.Method.Code;
+            item.m_path.text = itemdata.Method.Path;
+            item.m_library.text = itemdata.Library;
         }
 
         private void OnSelectHandler(EventContext context)
@@ -85,6 +117,25 @@ namespace CrashQuery
             item.m_cbLib.value = frame.Library;
             item.m_txtLibName.text = frame.Library;
             return true;
+        }
+
+        /// <summary>
+        /// 下载转为csv
+        /// 文本内容会结合原来是数据一起输出
+        /// </summary>
+        /// <param name="context">转csv输出</param>
+        private void OnClickDownLoadHandle(EventContext context)
+        {
+            ExportDao.Inst.OnSaveFile();
+        }
+        
+        /// <summary>
+        /// 拷贝 
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnClickCopyHandle(EventContext context)
+        {
+            ExportDao.Inst.CopyStackInfo();
         }
 
         class StackFrameInfo

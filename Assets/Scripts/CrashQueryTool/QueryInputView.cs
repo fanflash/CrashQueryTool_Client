@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using CrashQuery.Core;
 using CrashQuery.Data;
+using CrashQuery.Helper;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
@@ -21,6 +22,7 @@ namespace CrashQuery
 
         private List<string> m_symbol = new List<string>() {"libil2cpp", "libunity", "libc"};
         private List<string> m_backtrace = new List<string>();
+        private List<string> m_parseLineStack = new List<string>();
         
         public override void ConstructFromXML(XML xml)
         {
@@ -197,6 +199,7 @@ namespace CrashQuery
             {
                 ParsingBacktrace(line);
             }
+            ExportDao.Inst.SaveSourceStack(tokens);
             //显示到解析列表上
             m_listTraceExt.Data = m_backtrace;
         }
@@ -206,78 +209,34 @@ namespace CrashQuery
             string backtrace = string.Empty;
             string symbol = string.Empty;
             string address = string.Empty;
+            m_parseLineStack.Clear();
             
-            var pcIdx = line.IndexOf(" pc");
-            if (pcIdx != -1)
+            StackHelper.SplitLineWithPc(line, ref m_parseLineStack);
+            StackHelper.SplitLineWithAt(line, ref m_parseLineStack);
+
+            if (m_parseLineStack.Count > 2)
             {
-                //搜索以.so结尾的文本段
-                var sos = line.Split(' ');
-                if (sos.Length > 0)
+                address = m_parseLineStack[2];
+                symbol = m_parseLineStack[1];
+                if (m_parseLineStack[1].StartsWith("split_config"))
                 {
-                    for (int i = 0; i < sos.Length; i++)
-                    {
-                        if (sos[i].EndsWith(".so"))
-                        {
-                            address = sos[i - 1];
-                            //只取最后.so对应的
-                            symbol = sos[i];
-                            if (symbol.Length > 3)
-                            {
-                                symbol = symbol.Substring(0, symbol.Length - 3);
-                            }
-                            break;
-                        }
-                    }
+                    symbol = "";
                 }
             }
-            var atIdx = line.IndexOf("at ");
-            if (atIdx != -1)
-            {
-                var dotIdx = line.IndexOf('.');
-                var idx = line.IndexOf('(');
-                if (dotIdx > 0 && idx > 0)
-                {
-                    address = line.Substring(dotIdx+1, idx - dotIdx-1);
-                }
-            }
-
-            if (pcIdx < 0 && atIdx < 0)
-            {
-                return;
-            }
-
+            
             if (string.IsNullOrEmpty(address))
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(symbol))
-            {
-                foreach (var sym in m_symbol)
-                {
-                    var idx = line.IndexOf(sym);
-                    if (idx == -1)
-                    {
-                        backtrace = address +"," + "?";
-                    }
-                    else
-                    {
-                        backtrace = address +"," + sym;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                backtrace = address +"," + symbol;
-            }
-           
-            if (!string.IsNullOrEmpty(backtrace))
+            backtrace = address +"," + symbol;
+
+                if (!string.IsNullOrEmpty(backtrace))
             {
                 m_backtrace.Add(backtrace);
             }
         }
-        
+
         private void ItemTraceRenderer(int index, string itemData, BaseAddressItem item, bool isSelect)
         {
             item.m_title.text = itemData;
@@ -286,8 +245,5 @@ namespace CrashQuery
                 m_backtrace[index] = item.m_title.text;
             });
         }
-    
     }
-    
-    
 }
