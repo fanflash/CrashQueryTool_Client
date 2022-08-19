@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using CrashQuery.Core;
 using CrashQuery.Data;
+using CrashQuery.Helper;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
@@ -14,7 +15,7 @@ namespace CrashQuery
     public class QueryResultView:BaseQueryResultView
     {
         private GListExt<StackFrameInfo, BaseStackListItem> m_listResultEx;
-        private GListExt<StackFrame, BaseDetailListItem> m_DetailResEx;
+        private GListExt<StackFrame, BaseDetailListItem> m_detailResEx;
         
         public override void ConstructFromXML(XML xml)
         {
@@ -24,7 +25,7 @@ namespace CrashQuery
             
             m_btnDown.onClick.Add(OnClickDownLoadHandle);
 
-            m_DetailResEx = new GListExt<StackFrame, BaseDetailListItem>(m_listDetail, ItemRenderer);
+            m_detailResEx = new GListExt<StackFrame, BaseDetailListItem>(m_listDetail, ItemRenderer);
             m_btnCopy.onClick.Add(OnClickCopyHandle);
         }
 
@@ -81,7 +82,7 @@ namespace CrashQuery
         /// <param name="itemrender"></param>
         private void OnClickItem(StackFrameInfo itemdata, BaseStackListItem itemrender)
         {
-            m_DetailResEx.Data = itemdata.Frame.AllLibStack;
+            m_detailResEx.Data = itemdata.Frame.AllLibStack;
             m_address.text = itemdata.Frame.Address;
         }
         
@@ -91,6 +92,7 @@ namespace CrashQuery
             item.m_code.text = itemdata.Method.Code;
             item.m_path.text = itemdata.Method.Path;
             item.m_library.text = itemdata.Library;
+            item.m_ctrlStyle.selectedIndex = index % 2;
         }
 
         private void OnSelectHandler(EventContext context)
@@ -126,7 +128,7 @@ namespace CrashQuery
         /// <param name="context">转csv输出</param>
         private void OnClickDownLoadHandle(EventContext context)
         {
-            ExportDao.Inst.OnSaveFile();
+            ExportHelper.ExportCsv(AppDao.Query.LastSuccessResult);
         }
         
         /// <summary>
@@ -135,7 +137,7 @@ namespace CrashQuery
         /// <param name="context"></param>
         private void OnClickCopyHandle(EventContext context)
         {
-            ExportDao.Inst.CopyStackInfo();
+            ExportHelper.ExportToClipboard(AppDao.Query.LastSuccessResult);
         }
 
         class StackFrameInfo

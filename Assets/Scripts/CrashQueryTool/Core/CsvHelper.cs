@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Text;
-using CrashQuery.Core;
-using IGG.Framework.Utils;
-using UnityEngine;
 
-namespace IGG.Framework.Config
+namespace CrashQuery.Core
 {
     /// <summary>
     /// excel帮助类
@@ -14,57 +9,6 @@ namespace IGG.Framework.Config
     /// </summary>
     public class CsvHelper
     {
-        public static Csv<TRow> ReadCsv<TRow>(string csvPath, Encoding encoding = null) where TRow:new()
-        {
-            if (!File.Exists(csvPath))
-            {
-                return null;
-            }
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
-
-            try
-            {
-                string csvStr = File.ReadAllText(csvPath, encoding);
-                var csv = new Csv<TRow>();
-                csv.SetDataByCsv(csvStr);
-                return csv;
-            }
-            catch (Exception e)
-            {
-                //Logger.LogError("read csv error, path={0}, e={1}{2}", csvPath, e.Message, e.StackTrace);
-            }
-
-            return null;
-        }
-        public static List<string[]> ReadCsv(string path, Encoding encoding = null)
-        {
-            if (!File.Exists(path))
-            {
-                return null;
-            }
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
-
-            try
-            {
-                string csvStr = File.ReadAllText(path, encoding);
-                return CsvStrToList(csvStr);
-            }
-            catch (Exception e)
-            {
-               // Logger.LogError("read csv error, path={0}, e={1}{2}", path, e.Message, e.StackTrace);
-            }
-
-            return null;
-        }
-
         /// <summary>
         /// csv文件转列表
         /// 快速正确而且代码易读的CSV读取器

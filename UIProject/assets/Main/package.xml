@@ -10,6 +10,7 @@
     <component id="lkr4ixicv0" name="StackListItem.xml" path="/"/>
     <component id="kc5pixicv1" name="AddressItem.xml" path="/" exported="true"/>
     <component id="mirgixicv3" name="DetailListItem.xml" path="/"/>
+    <component id="qqbuixicv4" name="SaveFileDialog.xml" path="/"/>
   </resources>
   <publish name="Main" genCode="true"/>
 </packageDescription>

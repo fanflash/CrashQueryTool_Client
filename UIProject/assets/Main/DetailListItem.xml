@@ -2,18 +2,26 @@
 <component size="344,48" extention="Button" bgColorEnabled="true" bgColor="#383838">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,disabled,5,selectedDisabled" selected="0"/>
   <controller name="ctrlSelLib" pages="0,disable,1,enable" selected="0"/>
+  <controller name="ctrlStyle" pages="0,A,1,B" selected="0"/>
   <displayList>
-    <image id="n0" name="n0" src="au3n4v" fileName="List/images/listitem_hover.png" pkg="nk9ejx23" xy="0,0" size="344,48">
-      <gearDisplay controller="button" pages="2"/>
+    <graph id="n24_qqbu" name="n24" xy="0,0" size="344,48" type="rect" lineSize="0" fillColor="#ff292828">
+      <gearColor controller="ctrlStyle" pages="1" values="#333333" default="#292828"/>
       <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n20_mirg" name="library" xy="1,3" size="66,43" fontSize="12" color="#bdbdbd" align="center" vAlign="middle" autoSize="none" autoClearText="true" text="library">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n21_mirg" name="code" xy="77,3" size="262,19" fontSize="12" color="#bdbdbd" autoSize="height" autoClearText="true" text="code">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n22_mirg" name="path" xy="77,25" size="262,19" fontSize="12" color="#bdbdbd" autoSize="height" autoClearText="true" text="path">
+      <relation target="" sidePair="width-width"/>
+      <relation target="n21_mirg" sidePair="top-bottom"/>
+    </text>
+    <image id="n23_qqbu" name="n23" src="au3n38" fileName="VtSeperator.png" pkg="nk9ejx23" xy="71,3" size="1,42">
+      <relation target="" sidePair="height-height"/>
     </image>
-    <text id="n20_mirg" name="library" xy="10,17" size="73,19" fontSize="12" color="#bdbdbd" align="center" vAlign="middle" autoSize="none" text="library&#xA;"/>
-    <text id="n21_mirg" name="code" xy="95,5" size="232,19" fontSize="12" color="#bdbdbd" autoSize="none" text="jjjjj">
-      <relation target="" sidePair="width-width"/>
-    </text>
-    <text id="n22_mirg" name="path" xy="95,27" size="232,19" fontSize="12" color="#bdbdbd" autoSize="none" text="jjjjj">
-      <relation target="" sidePair="width-width"/>
-    </text>
   </displayList>
   <Button mode="Radio"/>
+  <relation target="n22_mirg" sidePair="bottomext-bottom"/>
 </component>

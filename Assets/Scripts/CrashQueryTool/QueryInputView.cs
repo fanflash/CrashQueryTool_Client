@@ -41,10 +41,16 @@ namespace CrashQuery
 
         private void OnClickQueryHandler(EventContext context)
         {
+            if (m_listTraceExt.Data == null ||
+                m_listTraceExt.Data.Count < 1)
+            {
+                ParseToList();
+            }
+            
             var param = new QueryRequest();
             param.EditorVersion = m_cbEditorVer.text;
-            param.Group = m_selectApk.Group;
-            param.Symbol = m_selectApk.Symbol;
+            param.Group = m_selectApk?.Group;
+            param.Symbol = m_selectApk?.Symbol;
             param.CpuType = m_cbCputype.text;
             param.Stack = string.Join("\n", m_backtrace.ToArray());
             param.Token = "124";
@@ -191,18 +197,23 @@ namespace CrashQuery
         /// <param name="context"></param>
         private void OnClickParingHandler(EventContext context)
         {
-            m_backtrace.Clear();
-            string stack = m_txtCallStack.text;
-            //分割行数据
-            string[] tokens = Regex.Split(stack, @"\r?\n|\r");
-            foreach (var line in tokens)
-            {
-                ParsingBacktrace(line);
-            }
-            ExportDao.Inst.SaveSourceStack(tokens);
             //显示到解析列表上
-            m_listTraceExt.Data = m_backtrace;
+            ParseToList();
         }
+
+         private void ParseToList()
+         {
+             m_backtrace.Clear();
+             string stack = m_txtCallStack.text;
+             //分割行数据
+             string[] tokens = Regex.Split(stack, @"\r?\n|\r");
+             foreach (var line in tokens)
+             {
+                 ParsingBacktrace(line);
+             }
+
+             m_listTraceExt.Data = m_backtrace;
+         }
         
         private void ParsingBacktrace(string line)
         {

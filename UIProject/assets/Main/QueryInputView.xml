@@ -30,20 +30,19 @@
       <relation target="" sidePair="left-left,right-right"/>
       <Button title="Development"/>
     </component>
-    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,263" size="248,258">
+    <component id="n24_enbw" name="txtCallStack" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="0,263" size="248,263">
       <relation target="" sidePair="bottomext-bottom"/>
       <relation target="n43_awlo" sidePair="rightext-left"/>
     </component>
-    <component id="n43_awlo" name="txtParingTrace" src="awloixicv2" fileName="Input/TextPareArea.xml" pkg="nk9ejx23" xy="252,266" size="136,256">
+    <component id="n43_awlo" name="txtParingTrace" src="awloixicv2" fileName="Input/TextPareArea.xml" pkg="nk9ejx23" xy="252,263" size="136,263">
       <relation target="" sidePair="right-right,bottomext-bottom"/>
     </component>
-    <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="265,524" size="85,21">
+    <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="150,530" size="99,19">
       <relation target="" sidePair="center-center,bottom-bottom"/>
-      <Button title="query"/>
+      <Button title="Query"/>
     </component>
-    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="60,526" size="85,19">
-      <relation target="" sidePair="bottom-bottom"/>
-      <Button title="Check"/>
+    <component id="n34_hkf5" name="btnCheck" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="123,240" size="82,19">
+      <Button title="Parse again"/>
     </component>
     <text id="n35_k4k0" name="n35" xy="1,214" size="70,19" fontSize="12" color="#bdbdbd" autoSize="none" text="Select apk:"/>
     <image id="n38_k4k0" name="n38" src="gcza1r" fileName="Input/input_bg.png" pkg="nk9ejx23" xy="71,213" size="329,21">

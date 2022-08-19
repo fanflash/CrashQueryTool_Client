@@ -1,4 +1,6 @@
-﻿using CrashQuery.Data;
+﻿using System;
+using System.IO;
+using CrashQuery.Data;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
@@ -8,19 +10,19 @@ namespace CrashQuery
 {
     public class CrashQueryMain : MonoBehaviour
     {
+        public const string DefaultServer = "10.0.18.77:8082";
+        
         public UIPanel Panel;
         public MainPanel m_mainPanel;
 
         private void Awake()
         {
             AppDao.Query.UseGetMethod = true;
-#if UNITY_EDITOR
-            AppDao.SetRootUrl("http://10.0.18.77:8082/");
-#else
-            AppDao.SetRootUrl("");
-#endif
+            AppDao.SetRootUrl(GetServerIp());
+            
             UIPackage.AddPackage("UI/Basic");
             MainBinder.BindAll();
+            UIObjectFactory.SetPackageItemExtension(BaseSaveFileDialog.URL,typeof(SaveFileDialog));
             UIObjectFactory.SetPackageItemExtension(BaseMessageBox.URL, typeof(MessageBox));
             UIObjectFactory.SetPackageItemExtension(BaseLoginView.URL, typeof(BaseLoginView));
             UIObjectFactory.SetPackageItemExtension(BaseQueryView.URL, typeof(QueryView));
@@ -33,12 +35,37 @@ namespace CrashQuery
         {
             m_mainPanel = Panel.ui as MainPanel;
         }
-        
-        void Update()
+
+        private string GetServerIp()
         {
+#if !UNITY_EDITOR && UNITY_WEBGL
+            return "";
+#else
+            return "http://" + GetServerIpByConfig() + "/";
+#endif
+        }
         
+        private string GetServerIpByConfig()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "config.txt");
+            if (!File.Exists(path))
+            {
+                return DefaultServer;
+            }
+
+            try
+            {
+                return File.ReadAllText(path);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+                return DefaultServer;
+            }
         }
     }
+    
+
 
     public class MainPanel:BaseMainPanel
     {

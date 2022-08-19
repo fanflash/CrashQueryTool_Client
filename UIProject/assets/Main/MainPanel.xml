@@ -13,7 +13,10 @@
       <gearDisplay controller="ctrlState" pages="1"/>
       <relation target="" sidePair="width-width,height-height"/>
     </component>
-    <component id="n18_ekry" name="frame" src="ekry5" fileName="MessageBox.xml" xy="0,0" visible="false">
+    <component id="n19_qqbu" name="saveFileDialog" src="qqbuixicv4" fileName="SaveFileDialog.xml" xy="0,0" visible="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n18_ekry" name="msgBox" src="ekry5" fileName="MessageBox.xml" xy="0,0" visible="false">
       <relation target="" sidePair="width-width,height-height"/>
     </component>
   </displayList>

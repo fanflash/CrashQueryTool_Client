@@ -17,6 +17,7 @@ namespace CrashQuery.UI.Main
             UIObjectFactory.SetPackageItemExtension(BaseStackListItem.URL, typeof(BaseStackListItem));
             UIObjectFactory.SetPackageItemExtension(BaseDetailListItem.URL, typeof(BaseDetailListItem));
             UIObjectFactory.SetPackageItemExtension(BaseMainPanel.URL, typeof(BaseMainPanel));
+            UIObjectFactory.SetPackageItemExtension(BaseSaveFileDialog.URL, typeof(BaseSaveFileDialog));
         }
     }
 }

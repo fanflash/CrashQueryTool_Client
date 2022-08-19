@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="218,22">
   <displayList>
-    <text id="n3_kc5p" name="title" xy="2,2" size="215,19" fontSize="12" color="#bdbdbd" autoSize="none" text="12345555555555555999" input="true"/>
+    <text id="n3_kc5p" name="title" xy="2,2" size="215,19" fontSize="12" color="#bdbdbd" autoSize="none" autoClearText="true" text="title" input="true"/>
   </displayList>
 </component>

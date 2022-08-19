@@ -8,6 +8,7 @@ namespace CrashQuery.UI.Main
     public partial class BaseDetailListItem : GButton
     {
         public Controller m_ctrlSelLib;
+        public Controller m_ctrlStyle;
         public GTextField m_library;
         public GTextField m_code;
         public GTextField m_path;
@@ -23,6 +24,7 @@ namespace CrashQuery.UI.Main
             base.ConstructFromXML(xml);
 
             m_ctrlSelLib = GetControllerAt(1);
+            m_ctrlStyle = GetControllerAt(2);
             m_library = (GTextField)GetChildAt(1);
             m_code = (GTextField)GetChildAt(2);
             m_path = (GTextField)GetChildAt(3);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <graph id="n37_hkf5" name="n37" xy="0,0" size="800,600" type="rect" lineSize="0" fillColor="#33000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n42_ekry" name="frame" src="gcza1l" fileName="Window/WindowFrame.xml" pkg="nk9ejx23" xy="104,194" size="592,128" group="n43_ekry">
+      <Label title="Save file Dialog"/>
+    </component>
+    <component id="n44_qqbu" name="txtPath" src="gcza1s" fileName="Input/TextInput.xml" pkg="nk9ejx23" xy="197,238" size="476,20" group="n43_ekry"/>
+    <text id="n45_qqbu" name="n45" xy="121,239" size="66,19" group="n43_ekry" fontSize="12" color="#bdbdbd" text="Save path:"/>
+    <component id="n41_ekry" name="btnSave" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="318,273" size="76,25" group="n47_qqbu">
+      <Button title="Save"/>
+    </component>
+    <component id="n46_qqbu" name="btnCancel" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="406,273" size="76,25" group="n47_qqbu">
+      <Button title="Cancel"/>
+    </component>
+    <group id="n47_qqbu" name="n47" xy="318,273" size="164,25" group="n43_ekry"/>
+    <group id="n43_ekry" name="n43" xy="104,194" size="592,128" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>

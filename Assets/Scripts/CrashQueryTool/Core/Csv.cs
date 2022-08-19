@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using CrashQuery.Core;
-using IGG.Framework.Config;
+using UnityEngine;
 
-namespace IGG.Framework.Utils
+namespace CrashQuery.Core
 {
     /// <summary>
     /// Author  gaofan
@@ -15,7 +14,7 @@ namespace IGG.Framework.Utils
     /// Desc    简单的创建CSV表
     ///         主要用于测试收集数据。
     /// </summary>
-    public partial class Csv<TRow>: IList<TRow> where TRow : new()
+    public partial class Csv<TRow>:Disposer,IList<TRow> where TRow : new()
     {
         private List<TRow> m_list;
 
@@ -27,13 +26,13 @@ namespace IGG.Framework.Utils
             m_list = new List<TRow>(capacity);
         }
 
-        public void SetDataByCsv(string csvStr)
+        public void AppendByCsv(string csvStr)
         {
             var csv = CsvHelper.CsvStrToList(csvStr);
-            SetData(csv);
+            Append(csv);
         }
 
-        public void SetData(List<string[]> table)
+        public void Append(List<string[]> table)
         {
             for (int i = 1; i < table.Count; i++)
             {
@@ -62,11 +61,11 @@ namespace IGG.Framework.Utils
                             {
                                 try
                                 {
-                                    //var value = converter.Convert(colStr);
+                                    var value = converter.Convert(colStr);
                                     //还可以这样
                                     //var reference = __makererf(row);
                                     //fi.SetValueDirect(reference, value);
-                                    //h.SetValue(row, value);
+                                    h.SetValue(row, value);
                                 }
                                 catch (Exception e)
                                 {
@@ -76,6 +75,7 @@ namespace IGG.Framework.Utils
                             }
                             else
                             {
+                                Debug.LogWarning($"Not fond decoder, type={headType.Name}");
                                 h.SetDefaultValue(row);
                             }
                         }
@@ -169,8 +169,12 @@ namespace IGG.Framework.Utils
 
             return SbPool.PutAndToStr(sb);
         }
-    }
 
+        protected override void OnDispose()
+        {
+        }
+    }
+    
     public partial class Csv<TRow> where TRow : new()
     {
         private static HeaderVo[] g_headers;
@@ -231,8 +235,50 @@ namespace IGG.Framework.Utils
             }
         }
 
+        /// <summary>
+        /// 加载配置 
+        /// </summary>
+        /// <param name="csvPath"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static Csv<TRow> Load(string csvPath, Encoding encoding = null)
+        {
+            if (encoding == null)
+            {
+                encoding = Encoding.UTF8;
+            }
 
-        
+            string csvStr = File.ReadAllText(csvPath, encoding);
+            var csv = new Csv<TRow>();
+            csv.AppendByCsv(csvStr);
+            return csv;
+        }
+
+        public static Csv<TRow> LoadByFolder(string csvFolder, Encoding encoding = null)
+        {
+            if (encoding == null)
+            {
+                encoding = Encoding.UTF8;
+            }
+
+            var csv = new Csv<TRow>();
+            var files = Directory.GetFiles(csvFolder);
+            for (int i = 0; i < files.Length; i++)
+            {
+                var path = files[i];
+                try
+                {
+                    string csvStr = File.ReadAllText(path, encoding);
+                    csv.AppendByCsv(csvStr);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[csv]{e.Message}{e.StackTrace}");
+                }
+            }
+            return csv;
+        }
+
         struct HeaderVo
         {
             public CsvHeaderAttribute Attribute;
@@ -297,9 +343,9 @@ namespace IGG.Framework.Utils
         
         static Csv()
         {
-            SetDecoder<ulong>(new GeneralStrConv<ulong>(Convert.ToUInt64));
-            SetDecoder<int>(new GeneralStrConv<int>(Convert.ToInt32));
-            SetDecoder<uint>(new GeneralStrConv<uint>(Convert.ToUInt32));
+            SetDecoder<ulong>(new GeneralStrConv<ulong>(Convert.ToUInt64, 0));
+            SetDecoder<int>(new GeneralStrConv<int>(Convert.ToInt32, 0));
+            SetDecoder<uint>(new GeneralStrConv<uint>(Convert.ToUInt32, 0));
         }
 
         public static void SetDecoder(Type type, IStringConverter converter)
@@ -328,7 +374,7 @@ namespace IGG.Framework.Utils
 
             string csvStr = File.ReadAllText(csvPath, encoding);
             var csv = new Csv<TRow>();
-            csv.SetDataByCsv(csvStr);
+            csv.AppendByCsv(csvStr);
             return csv;
         }
     }
@@ -356,20 +402,35 @@ namespace IGG.Framework.Utils
 
     public interface IStringConverter
     {
-        //public object Convert(string value);
+        object Convert(string value);
     }
 
     public class GeneralStrConv<T>:IStringConverter
     {
         private Func<string, T> m_handler;
-        public GeneralStrConv(Func<string,T> handler)
+        private T m_default;
+        
+        public GeneralStrConv(Func<string,T> handler, T defValue)
         {
             m_handler = handler;
+            m_default = defValue;
         }
 
         public object Convert(string value)
         {
-            return m_handler(value);
+            try
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return m_default;
+                }
+                return m_handler(value);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[Csv]{e.Message}{e.StackTrace}");
+                return m_default;
+            }
         }
     }
 }

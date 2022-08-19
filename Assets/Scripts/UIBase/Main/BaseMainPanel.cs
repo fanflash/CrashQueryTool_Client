@@ -10,7 +10,8 @@ namespace CrashQuery.UI.Main
         public Controller m_ctrlState;
         public BaseLoginView m_loginView;
         public BaseQueryView m_queryView;
-        public BaseMessageBox m_frame;
+        public BaseSaveFileDialog m_saveFileDialog;
+        public BaseMessageBox m_msgBox;
         public const string URL = "ui://5ifl14obonwu0";
 
         public static BaseMainPanel CreateInstance()
@@ -25,7 +26,8 @@ namespace CrashQuery.UI.Main
             m_ctrlState = GetControllerAt(0);
             m_loginView = (BaseLoginView)GetChildAt(1);
             m_queryView = (BaseQueryView)GetChildAt(2);
-            m_frame = (BaseMessageBox)GetChildAt(3);
+            m_saveFileDialog = (BaseSaveFileDialog)GetChildAt(3);
+            m_msgBox = (BaseMessageBox)GetChildAt(4);
         }
     }
 }
