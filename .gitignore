@@ -6,3 +6,4 @@
 /UIProject/.objs
 /*.csproj
 /*.sln
+/ProjectSettings/UnityConnectSettings.asset
