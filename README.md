@@ -1,0 +1,2 @@
+# CrashQueryTool_Client
+Unity崩溃日志查询工具客户端
