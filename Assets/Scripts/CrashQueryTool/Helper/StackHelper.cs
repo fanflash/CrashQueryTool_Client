@@ -2,19 +2,19 @@
 // Date:   2022.01.04
 // Desc:
 
+using System;
 using System.Collections.Generic;
 
 namespace CrashQuery.Helper
 {
     public static class StackHelper
     {
-        public static void SplitLineWithAt(string line, ref List<string> data)
+        public static void SplitLineWithAt(string line, List<string> result)
         {
-           
-            var atIdx = line.IndexOf("at ");
+            var atIdx = line.IndexOf("at ", StringComparison.Ordinal);
             if (atIdx != -1)
             {
-                data.Add("at ");
+                result.Add("at ");
                 string[] str = line.Split(' ');
                 for (int i = 0; i < str.Length; i++)
                 {
@@ -29,16 +29,16 @@ namespace CrashQuery.Helper
                         }
 
                         var lib = str[i].Substring(0, dotIdx);
-                        data.Add(lib);
-                        data.Add(address);
+                        result.Add(lib);
+                        result.Add(address);
                     }
                 }
             }
         }
 
-        public static void SplitLineWithPc(string line, ref List<string> data)
+        public static void SplitLineWithPc(string line, List<string> result)
         {
-            var pcIdx = line.IndexOf(" pc");
+            var pcIdx = line.IndexOf(" pc", StringComparison.Ordinal);
             if (pcIdx != -1)
             {
                 //搜索以.so结尾的文本段
@@ -71,9 +71,9 @@ namespace CrashQuery.Helper
                             break;
                         }
                     }
-                    data.Add("pc ");
-                    data.Add(lib);
-                    data.Add(address);
+                    result.Add("pc ");
+                    result.Add(lib);
+                    result.Add(address);
                 }
             }
         }

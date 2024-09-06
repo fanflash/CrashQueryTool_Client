@@ -34,7 +34,7 @@
       <relation target="" sidePair="bottomext-bottom"/>
       <relation target="n43_awlo" sidePair="rightext-left"/>
     </component>
-    <component id="n43_awlo" name="txtParingTrace" src="awloixicv2" fileName="Input/TextPareArea.xml" pkg="nk9ejx23" xy="252,263" size="136,263">
+    <component id="n43_awlo" name="txtParingTrace" src="au3n6k" fileName="Input/TextArea.xml" pkg="nk9ejx23" xy="252,263" size="136,263">
       <relation target="" sidePair="right-right,bottomext-bottom"/>
     </component>
     <component id="n26_enbw" name="btnQuery" src="xualm" fileName="Button/Button.xml" pkg="nk9ejx23" xy="150,530" size="99,19">

@@ -168,5 +168,5 @@
     <component id="kiv0ixicuz" name="ComboBox2.xml" path="/ComboBox/" exported="true"/>
     <component id="awloixicv2" name="TextPareArea.xml" path="/Input/" exported="true"/>
   </resources>
-  <publish name="Basic"/>
+  <publish name="Basic" genCode="true"/>
 </packageDescription>

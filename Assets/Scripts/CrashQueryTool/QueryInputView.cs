@@ -3,10 +3,13 @@
 // Desc:
 
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Text;
 using System.Text.RegularExpressions;
 using CrashQuery.Core;
 using CrashQuery.Data;
 using CrashQuery.Helper;
+using CrashQuery.UI.Basic;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
@@ -17,11 +20,8 @@ namespace CrashQuery
     public class QueryInputView:BaseQueryInputView
     {
         private GListExt<SymbolVo,GButton> m_listApkExt;
-        private GListExt<string,BaseAddressItem> m_listTraceExt;
         private SymbolVo m_selectApk;
-
-        private List<string> m_symbol = new List<string>() {"libil2cpp", "libunity", "libc"};
-        private List<string> m_backtrace = new List<string>();
+        
         private List<string> m_parseLineStack = new List<string>();
         
         public override void ConstructFromXML(XML xml)
@@ -33,18 +33,14 @@ namespace CrashQuery
             var filterInput = m_txtFilter.GetChild("title") as GTextInput;
             filterInput?.onChanged.Add(UpdateSymbol);
             m_btnQuery.onClick.Add(OnClickQueryHandler);
-            
             m_btnCheck.onClick.Add(OnClickParingHandler);
-            GList list =  m_txtParingTrace.GetChild("listPareSrack") as GList;
-            m_listTraceExt = new GListExt<string, BaseAddressItem>(list, ItemTraceRenderer);
         }
 
         private void OnClickQueryHandler(EventContext context)
         {
-            if (m_listTraceExt.Data == null ||
-                m_listTraceExt.Data.Count < 1)
+            if (m_txtParingTrace.title == string.Empty)
             {
-                ParseToList();
+                UpdateTxtParingTrace();
             }
             
             var param = new QueryRequest();
@@ -52,7 +48,7 @@ namespace CrashQuery
             param.Group = m_selectApk?.Group;
             param.Symbol = m_selectApk?.Symbol;
             param.CpuType = m_cbCputype.text;
-            param.Stack = string.Join("\n", m_backtrace.ToArray());
+            param.Stack = m_txtParingTrace.title;
             param.Token = "124";
             param.IsDev = m_cbDevelpment.selected;
             param.IsSync = true;
@@ -81,7 +77,7 @@ namespace CrashQuery
             }
             
             var reqId = AppDao.Query.Request(param, QueryCompleteHandler);
-            Debug.Log($"[Query]new request, reqId={reqId}");
+            Debug.Log($"[Query]new request, reqId={reqId}, Stack:\n{param.Stack}");
             MessageBox.Show("Querying...");
         }
 
@@ -197,64 +193,51 @@ namespace CrashQuery
         /// <param name="context"></param>
         private void OnClickParingHandler(EventContext context)
         {
-            //显示到解析列表上
-            ParseToList();
+            UpdateTxtParingTrace();
         }
 
-         private void ParseToList()
+         private void UpdateTxtParingTrace()
          {
-             m_backtrace.Clear();
-             string stack = m_txtCallStack.text;
-             //分割行数据
-             string[] tokens = Regex.Split(stack, @"\r?\n|\r");
-             foreach (var line in tokens)
-             {
-                 ParsingBacktrace(line);
-             }
-
-             m_listTraceExt.Data = m_backtrace;
+             m_txtParingTrace.title = ParsingAll(m_txtCallStack.text);
          }
-        
-        private void ParsingBacktrace(string line)
-        {
-            string backtrace = string.Empty;
-            string symbol = string.Empty;
-            string address = string.Empty;
-            m_parseLineStack.Clear();
+
+         private string ParsingAll(string input)
+         {
+             var sb = new StringBuilder();
+             string[] lines = Regex.Split(input, @"\r?\n|\r");
+             for (int i = 0; i < lines.Length; i++)
+             {
+                 var line = lines[i];
+                 string symbol = string.Empty;
+                 string address = string.Empty;
+                 m_parseLineStack.Clear();
             
-            StackHelper.SplitLineWithPc(line, ref m_parseLineStack);
-            StackHelper.SplitLineWithAt(line, ref m_parseLineStack);
+                 StackHelper.SplitLineWithPc(line, m_parseLineStack);
+                 StackHelper.SplitLineWithAt(line, m_parseLineStack);
 
-            if (m_parseLineStack.Count > 2)
-            {
-                address = m_parseLineStack[2];
-                symbol = m_parseLineStack[1];
-                if (m_parseLineStack[1].StartsWith("split_config"))
-                {
-                    symbol = "";
-                }
-            }
+                 if (m_parseLineStack.Count > 2)
+                 {
+                     address = m_parseLineStack[2];
+                     symbol = m_parseLineStack[1];
+                     if (symbol.StartsWith("split_config"))
+                     {
+                         symbol = string.Empty;
+                     }
+                 }
             
-            if (string.IsNullOrEmpty(address))
-            {
-                return;
-            }
+                 if (string.IsNullOrEmpty(address))
+                 {
+                     continue;
+                 }
 
-            backtrace = address +"," + symbol;
-
-                if (!string.IsNullOrEmpty(backtrace))
-            {
-                m_backtrace.Add(backtrace);
-            }
-        }
-
-        private void ItemTraceRenderer(int index, string itemData, BaseAddressItem item, bool isSelect)
-        {
-            item.m_title.text = itemData;
-            item.m_title.onChanged.Set(() =>
-            {
-                m_backtrace[index] = item.m_title.text;
-            });
-        }
+                 sb.Append(address);
+                 if (!string.IsNullOrEmpty(symbol))
+                 {
+                     sb.Append(',').Append(symbol);
+                 }
+                 sb.AppendLine();
+             }
+             return sb.ToString();
+         }
     }
 }

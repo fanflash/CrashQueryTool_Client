@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using CrashQuery.Data;
+using CrashQuery.UI.Basic;
 using CrashQuery.UI.Main;
 using FairyGUI;
 using FairyGUI.Utils;
@@ -10,7 +11,7 @@ namespace CrashQuery
 {
     public class CrashQueryMain : MonoBehaviour
     {
-        public const string DefaultServer = "10.0.18.77:8082";
+        public const string DefaultServer = "127.0.0.1:8082";
         
         public UIPanel Panel;
         public MainPanel m_mainPanel;
@@ -21,6 +22,7 @@ namespace CrashQuery
             AppDao.SetRootUrl(GetServerIp());
             
             UIPackage.AddPackage("UI/Basic");
+            BasicBinder.BindAll();
             MainBinder.BindAll();
             UIObjectFactory.SetPackageItemExtension(BaseSaveFileDialog.URL,typeof(SaveFileDialog));
             UIObjectFactory.SetPackageItemExtension(BaseMessageBox.URL, typeof(MessageBox));
